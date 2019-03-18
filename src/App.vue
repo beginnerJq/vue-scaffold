@@ -47,7 +47,7 @@ new Promise(resolve => {
   font-style: normal;
 }
 span {
-  color: green;
+  color: red;
   font-family: "MyFont";
 }
 .box {

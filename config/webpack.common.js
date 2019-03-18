@@ -5,29 +5,25 @@ const {
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //自动注入html
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清除多余文件
-const webpack = require('webpack');
 
 module.exports = {
-    //mode: "development",
-    //mode:"production",
+    context: resolve(__dirname, '../'),
     entry: {
-        app: resolve(__dirname, 'src/main.js')
+        app: './src/main.js'
     },
     output: {
-        path: resolve(__dirname, 'dist'),
+        path: resolve(__dirname, '../dist'),
         filename: "scripts/[name].bundle.js",
         publicPath: '/'
     },
-    devtool: 'inline-source-map',
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
         alias: {
-            '@': resolve(__dirname, 'src')
+            '@': resolve('src')
         }
     },
     devServer: {
-        contentBase: './dist',
-        hot: true
+        contentBase: './dist'
     },
     module: {
         rules: [{
@@ -83,8 +79,6 @@ module.exports = {
                 use: [
                     'file-loader'
                 ]
-            }, {
-                sideEffects: false //表示所有文件无副作用，可以tree-shaking
             }
         ]
     },
@@ -94,8 +88,6 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: './src/index.html'
         }),
-        new CleanWebpackPlugin(),
-        new webpack.NamedModulesPlugin(),
-        new webpack.HotModuleReplacementPlugin()
+        new CleanWebpackPlugin()
     ]
 };
