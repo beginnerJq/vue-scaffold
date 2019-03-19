@@ -2,18 +2,21 @@
 const {
     resolve
 } = require('path');
+const webpack = require('webpack');
 const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //自动注入html
 const CleanWebpackPlugin = require('clean-webpack-plugin'); //清除多余文件
+const WorkboxPlugin = require('workbox-webpack-plugin');
 
 module.exports = {
     context: resolve(__dirname, '../'),
     entry: {
-        app: './src/main.js'
+        'whatwg-fetch': 'whatwg-fetch', //fetch polyfill
+        'app': './src/index.js'
     },
     output: {
         path: resolve(__dirname, '../dist'),
-        filename: "scripts/[name].bundle.js",
+        filename: "scripts/[name].[chunkhash].js",
         publicPath: '/'
     },
     resolve: {
@@ -86,8 +89,31 @@ module.exports = {
         // 请确保引入这个插件来施展魔法
         new VueLoaderPlugin(),
         new HtmlWebpackPlugin({
-            template: './src/index.html'
+            template: './src/index.html',
+            title: 'Progressive Web Application'
         }),
-        new CleanWebpackPlugin()
-    ]
+        new CleanWebpackPlugin(),
+        new webpack.HashedModuleIdsPlugin(),
+        new webpack.ProvidePlugin({
+            join: ['lodash', 'join']
+        }),
+        new WorkboxPlugin.GenerateSW({
+            // 这些选项帮助 ServiceWorkers 快速启用
+            // 不允许遗留任何“旧的” ServiceWorkers
+            clientsClaim: true,
+            skipWaiting: true
+        })
+    ],
+    optimization: {
+        runtimeChunk: 'single',
+        splitChunks: {
+            cacheGroups: {
+                vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all'
+                }
+            }
+        }
+    }
 };

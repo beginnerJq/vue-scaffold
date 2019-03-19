@@ -10,8 +10,8 @@
 
 <script>
 import Icon from "@/assets/img/share.png";
-import printMe from "./print.js";
 import { cube } from "./math.js";
+import Print from "./print";
 export default {
   created() {},
   data() {
@@ -22,21 +22,6 @@ export default {
     };
   }
 };
-console.log(cube(5));
-if (module.hot) {
-  module.hot.accept("./print.js", function() {
-    console.log("Accepting the updated printMe module!");
-    printMe();
-  });
-}
-const a = 1;
-console.log(a);
-console.log(Symbol());
-new Promise(resolve => {
-  resolve(2);
-}).then(v => {
-  console.log(v);
-});
 </script>
 
 <style lang="postcss" scoped>

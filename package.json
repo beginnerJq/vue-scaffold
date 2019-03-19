@@ -8,13 +8,14 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open --config ./config/webpack.dev.js",
     "build": "webpack --config ./config/webpack.prod.js",
-    "server": "node server/server.js"
+    "server": "live-server dist"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.3.4",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/polyfill": "^7.2.5",
     "@babel/preset-env": "^7.3.4",
     "autoprefixer": "^9.5.0",
@@ -39,10 +40,13 @@
     "webpack-cli": "^3.2.3",
     "webpack-dev-middleware": "^3.6.1",
     "webpack-dev-server": "^3.2.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "workbox-webpack-plugin": "^4.1.1"
   },
   "dependencies": {
+    "lodash": "^4.17.11",
     "vue": "^2.6.9",
-    "vue-router": "^3.0.2"
+    "vue-router": "^3.0.2",
+    "whatwg-fetch": "^3.0.0"
   }
 }

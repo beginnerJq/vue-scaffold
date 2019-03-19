@@ -1,10 +1,11 @@
-const presets = [
+module.exports = {
+  presets: [
     [
       "@babel/preset-env",
       {
         useBuiltIns: "usage",
       }
     ]
-  ];
-  
-  module.exports = { presets };
+  ],
+  plugins: ["@babel/plugin-syntax-dynamic-import"]
+};
