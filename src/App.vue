@@ -24,7 +24,8 @@ export default {
 };
 </script>
 
-<style lang="postcss" scoped>
+<style lang="less" scoped>
+@red:red;
 @font-face {
   font-family: "MyFont";
   src: url("./assets/font/Founder.ttf");
@@ -32,7 +33,7 @@ export default {
   font-style: normal;
 }
 span {
-  color: red;
+  color: @red;
   font-family: "MyFont";
 }
 .box {

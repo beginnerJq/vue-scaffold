@@ -17,6 +17,7 @@ module.exports = {
     output: {
         path: resolve(__dirname, '../dist'),
         filename: "scripts/[name].[chunkhash].js",
+        crossOriginLoading: 'anonymous',
         publicPath: '/'
     },
     resolve: {
@@ -24,9 +25,6 @@ module.exports = {
         alias: {
             '@': resolve('src')
         }
-    },
-    devServer: {
-        contentBase: './dist'
     },
     module: {
         rules: [{
@@ -50,25 +48,11 @@ module.exports = {
             // 它会应用到普通的 `.css` 文件
             // 以及 `.vue` 文件中的 `<style>` 块
             {
-                test: /\.css$|\.postcss$|\.less$/,
-                use: [{
-                        loader: 'vue-style-loader',
-                    },
-                    {
-                        loader: "style-loader"
-                    },
-                    {
-                        loader: 'css-loader'
-                    },
-                    {
-                        loader: 'less-loader',
-                        options: {
-                            noIeCompat: true
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    }
+                test: /\.(css|less)$/,
+                use: [
+                    'css-loader',
+                    'less-loader',
+                    'postcss-loader'
                 ]
             },
             {
